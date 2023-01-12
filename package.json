@@ -20,7 +20,7 @@
     "build:vite": "vite build",
     "clean": "rm -Rf output node_modules .spago *-lock.json",
     "postinstall": "spago install",
-    "serve": "npm run serve:spago & npm run serve:vite",
+    "serve": "spago build && (npm run serve:spago & npm run serve:vite)",
     "serve:spago": "spago build --watch",
     "serve:vite": "vite serve",
     "test": "spago test --no-install"
