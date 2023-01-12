@@ -6,7 +6,7 @@ import Babylon.ArcRotateCamera (createArcRotateCamera) as ArcRotateCamera
 import Babylon.Camera (attachControl)
 import Babylon.Engine (createEngine, resize, runRenderLoop) as Engine
 import Babylon.HemisphericLight (createHemisphericLight) as HemisphericLight
-import Babylon.Scene (createScene, render) as Scene
+import Babylon.Scene (createScene, render, getActiveCamera) as Scene
 import Babylon.SceneLoader (importMeshAsync) as SceneLoader
 import Babylon.Vector3 (createVector3) as Vector3
 import Data.Either (Either(..))
@@ -55,7 +55,15 @@ main = do
       _ <- HemisphericLight.createHemisphericLight "light" direction scene
 
       -- Register a render loop to repeatedly render the scene
-      Engine.runRenderLoop (Scene.render scene) engine
+      Engine.runRenderLoop
+        ( do
+            -- Check if there is an active camera
+            activeCamera <- Scene.getActiveCamera scene
+            case activeCamera of
+              Nothing -> pure unit
+              Just _ -> Scene.render scene
+        )
+        engine
 
       -- Watch for browser/canvas resize event
       listener <- eventListener \_ -> Engine.resize engine
