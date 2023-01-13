@@ -15,3 +15,11 @@ export const _setActiveCamera = (camera, scene) => {
 export const _getActiveCamera = (scene) => {
   return scene.activeCamera;
 };
+
+export const _createDefaultSkybox = (environmentTexture, pbr, scale, blur, setGlobalEnvTexture, scene) => {
+  return scene.createDefaultSkybox(environmentTexture, pbr, scale, blur, setGlobalEnvTexture);
+}
+
+export const _createDefaultCameraOrLight = (createArcRotateCamera, replace, attachCameraControls, scene) => {
+  return scene.createDefaultCameraOrLight(createArcRotateCamera, replace, attachCameraControls);
+}
